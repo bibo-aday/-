@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後台管理頁面</title>
+    <script>
+        async function loadReservations() {
+            const response = await fetch('/api/reservations');
+            const reservations = await response.json();
+            const list = document.getElementById('reservationList');
+            list.innerHTML = '';
+            reservations.forEach((r, index) => {
+                const item = document.createElement('li');
+                item.innerHTML = `${index + 1}. ${r.name} - ${r.date} - ${r.status}
+                    <button onclick="acceptReservation(${index})">接受</button>`;
+                list.appendChild(item);
+            });
+        }
+
+        async function acceptReservation(index) {
+            // 假設你會在這裡進行更新
+            alert('已同意受理預約！');
+        }
+        
+        window.onload = loadReservations;
+    </script>
+</head>
+<body>
+    <h1>後台管理頁面</h1>
+    <ul id="reservationList"></ul>
+</body>
+</html>
